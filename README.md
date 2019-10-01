@@ -68,6 +68,11 @@ This is the microcontroller device of choice that will connect via Bluetooth to 
 #### Temperature Probe  
 The long wire or external sensor that will connect to the BBC Micro Bit’s IO pins and will be what sits in direct contact with whatever thing or environment that needs temperatures taken from.  
 
-## Security Analysis
+## Security Analysis  
+The main area of vulnerability for an application such as mine would be DDoS attacks towards the server that stores user data as well as exploitation of any sensitive information. Assuming that the Server utilizes a server such as AWS or other cloud-based system, then DDoS protection is already assumed and/or outside my direct control. The bigger issue would be encryption of user data.
 
 ![Tooltip for the visually disabled](./SecurityVulnerabilities.png)
+
+| Component Name | Category of vulnerability | Issue Description                                                                                                                                                                                                                                                                                              | Mitigation                                                                                                                                              |
+|----------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Database       | Information Disclosure    | This component stores user profile information as well as configuration settings. In the wrong hands this information may at best sabotoged in a mischeivious but not necessarily dangerous way, such as deleting user settings. At worst, sensitive personal information relating to the user may be exposed. | Data sent between the mobile app and the data servers should be encrypted in some way to prevent exploitation or stealing of meaninful data in transit. |
