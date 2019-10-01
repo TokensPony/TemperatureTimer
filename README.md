@@ -13,27 +13,27 @@ In summary, the app will be capable of
 
 ## User Stories  
 As a cook, I want to be able to measure the temperature of my water pot so I can cook food in it at a stable temperature.  
-**Acceptance Criteria**
+**Acceptance Criteria**  
 * Sensor is inserted into pot via a wired probe.  
 * If water goes above or below acceptable levels of heat, the app will alert the user to go correct it.  
 
 As a mascot costume wearer, I want to be able to know the internal temperature of the costume over time so that I do not suffer heat stroke or other illness.  
-**Acceptance Criteria**
+**Acceptance Criteria**  
 * Sensor can be placed inside costume or against body
 * Sensor triggers app notifications after a set time period exposed to a dangerous temperature.  
 
 As an artist, I want to be able to know the temperature of my garage that I am letting paint or clay dry because I don’t’ want them to be damaged by unsuitable temperature exposure.
-**Acceptance Criteria**
+**Acceptance Criteria**  
 * Sensor can be set on table in room for collecting air temperatures.
 * Will alert user if sudden temperature changes occur.
 
 ## Misuser Stories  
 As a hacker I want to be able to spoof the Bluetooth signal and introduce erroneous data to trick the application so that I can prevent the user from being alerted to the actual temperature.
-**Acceptance Criteria**
+**Acceptance Criteria**  
 * Stream data will be encrypted and utilize pairing keys to ensure that unknown devices can’t take it’s place.  
 * Alert user if there is ever a break or interruption to the signal.  
 
 As a cyber criminal I want to be able to exploit different sensor data from the app or IOT device beyond what it was intended to collect so that I can spy and track the user of the phone.
-**Acceptance Criteria**
+**Acceptance Criteria**  
 * App will be as limited as possible in the permissions that it asks for so that it does not erroneously request parts of the phones sensors that it does not need.
 
