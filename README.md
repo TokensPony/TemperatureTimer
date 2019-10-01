@@ -22,18 +22,52 @@ As a mascot costume wearer, I want to be able to know the internal temperature o
 * Sensor can be placed inside costume or against body
 * Sensor triggers app notifications after a set time period exposed to a dangerous temperature.  
 
-As an artist, I want to be able to know the temperature of my garage that I am letting paint or clay dry because I don’t’ want them to be damaged by unsuitable temperature exposure.
+As an artist, I want to be able to know the temperature of my garage that I am letting paint or clay dry because I don’t’ want them to be damaged by unsuitable temperature exposure.  
 **Acceptance Criteria**  
 * Sensor can be set on table in room for collecting air temperatures.
 * Will alert user if sudden temperature changes occur.
 
 ## Misuser Stories  
-As a hacker I want to be able to spoof the Bluetooth signal and introduce erroneous data to trick the application so that I can prevent the user from being alerted to the actual temperature.
+As a hacker I want to be able to spoof the Bluetooth signal and introduce erroneous data to trick the application so that I can prevent the user from being alerted to the actual temperature.  
 **Acceptance Criteria**  
 * Stream data will be encrypted and utilize pairing keys to ensure that unknown devices can’t take it’s place.  
 * Alert user if there is ever a break or interruption to the signal.  
 
-As a cyber criminal I want to be able to exploit different sensor data from the app or IOT device beyond what it was intended to collect so that I can spy and track the user of the phone.
+As a cyber criminal I want to be able to exploit different sensor data from the app or IOT device beyond what it was intended to collect so that I can spy and track the user of the phone.  
 **Acceptance Criteria**  
 * App will be as limited as possible in the permissions that it asks for so that it does not erroneously request parts of the phones sensors that it does not need.
 
+## High Level Design
+![Tooltip for visually disabled](./Slide1.PNG)
+
+## Component List
+### Web Services  
+This is where the major cloud based infrastructure will take place and be controlled by including database storage.
+
+#### Database  
+Will contain user profile data as well as information that the user desires to save such as specific configurations for timers and temperature settings.  
+
+### Mobile App  
+The main application itself that will run on the user’s mobile device which will provide the interface that the users interact with as they dial in the temperature and timers settings as well as the Bluetooth connectivity to the IoT devices.
+
+#### HTML Views, Controllers, etc. 
+Will contain the workings for the layout of the application interface as well as the code for processing the data that has been received, sending info to the database, and retrieving info from the database.  
+
+#### Cordova Bluetooth LE
+The Cordova plugin that will enable interfacing with the BBC Micro Bit or other IoT devices. It will not only connect with the devices but also retrieve the data sent from it and pass it onto the various controllers to be then used to calculate the various functions of the app.
+
+#### Graph Plugins  
+These libraries will enable graph displays of temperature information pertaining received from the sensors over time. This will help the user easily see trends in the temperature changes or lack therof.
+
+### Hardware Devices  
+These are the physical IoT devices and peripherals that the app will connect to in order to receive relevant sensor data for the application.  
+
+#### BBC Micro Bit  
+This is the microcontroller device of choice that will connect via Bluetooth to the mobile application and will perform the temperature sensing functionality and processing. It will be battery powered and small.  
+
+#### Temperature Probe  
+The long wire or external sensor that will connect to the BBC Micro Bit’s IO pins and will be what sits in direct contact with whatever thing or environment that needs temperatures taken from.  
+
+## Security Analysis
+
+![Tooltip for the visually disabled](./SecurityVulnerabilities.png)
