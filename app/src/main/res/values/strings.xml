@@ -3,4 +3,18 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="label_current_temp">Current Temperature</string>
+    <string name="label_fahrenheit_RButton">Fahrenheit</string>
+    <string name="label_celcius_RButton">Celcius</string>
+    <string name="loading_current_temp">##°</string>
+    <string name="label_timer_duration">Alarm After: </string>
+    <string-array name="duration_list">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    
+
 </resources>
