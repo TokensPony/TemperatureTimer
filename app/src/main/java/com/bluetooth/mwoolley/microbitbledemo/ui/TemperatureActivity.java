@@ -89,10 +89,12 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
         Intent gattServiceIntent = new Intent(this, BleAdapterService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
 
+        //Grabs buttons and other UI Elements
         tempButtons = (RadioGroup) findViewById(R.id.tempButtons);
         fahrButton = (RadioButton) findViewById(R.id.fahrTemp);
         celButton = (RadioButton) findViewById(R.id.celTemp);
 
+        //Applies listeners to the radio buttons. Allows for the temperature setting to be changed on the fly.
         tempButtons.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
@@ -129,6 +131,7 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
         shutdownSteps();
     }
 
+    //Disconnects Microbit after shutdown
     private void shutdownSteps() {
         exiting=true;
         exit_step++;
@@ -158,7 +161,7 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_magnetometer, menu);
+        //getMenuInflater().inflate(R.menu.menu_magnetometer, menu);
         return true;
     }
 
@@ -204,9 +207,9 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
                         Log.d(Constants.TAG, "Temperature converted: " + temperature);
                         TextView temp = (TextView) TemperatureActivity.this.findViewById(R.id.temperature);
                         if(fahr) {
-                            temp.setText("" + fTemperature + "°");
+                            temp.setText(fTemperature + "°");
                         }else {
-                            temp.setText("" + temperature + "°");
+                            temp.setText(temperature + "°");
                         }
                     }
                     break;
@@ -218,6 +221,7 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
         }
     };
 
+    //Displays strings of text at the top of the screen
     private void showMsg(final String msg) {
         Log.d(Constants.TAG, msg);
         runOnUiThread(new Runnable() {

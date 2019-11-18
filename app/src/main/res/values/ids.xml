@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item  type="id" name="fahrTemp"/>
-    <item  type="id" name="celTemp"/>
+    <item type="id" name="fahrTemp"/>
+    <item type="id" name="celTemp"/>
+    <item type="id" name="scanButton"/>
 </resources>
