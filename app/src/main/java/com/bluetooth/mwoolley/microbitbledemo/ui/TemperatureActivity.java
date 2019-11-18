@@ -200,12 +200,13 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
                     if (characteristic_uuid.equalsIgnoreCase((Utility.normaliseUUID(BleAdapterService.TEMPERATURE_CHARACTERISTIC_UUID)))) {
                         Log.d(Constants.TAG, "Temperature received: " + temperature);
                         fTemperature = (fTemperature * ((float) 9/5) + 32);
+                        fTemperature = Math.round(fTemperature);
                         Log.d(Constants.TAG, "Temperature converted: " + temperature);
                         TextView temp = (TextView) TemperatureActivity.this.findViewById(R.id.temperature);
                         if(fahr) {
-                            temp.setText("" + fTemperature);
+                            temp.setText("" + fTemperature + "°");
                         }else {
-                            temp.setText("" + temperature);
+                            temp.setText("" + temperature + "°");
                         }
                     }
                     break;

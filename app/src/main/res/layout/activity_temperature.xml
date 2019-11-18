@@ -74,16 +74,6 @@
                     android:text=""
                     android:textSize="40dp" />
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:layout_columnWeight="1"
-                    android:paddingLeft="10dip"
-                    android:paddingTop="10dip"
-                    android:text="degrees fahrenheit"
-                    android:textSize="36dp" />
-
                 <RadioGroup
                     android:id="@+id/tempButtons"
                     android:layout_width="match_parent"

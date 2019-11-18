@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/TemperatureTimer.iml" filepath="$PROJECT_DIR$/TemperatureTimer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/microbit-blue.iml" filepath="$PROJECT_DIR$/microbit-blue.iml" />
     </modules>
   </component>
 </project>
