@@ -28,6 +28,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -47,11 +48,18 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
     private int exit_step = 0;
     private boolean exiting = false;
 
+    //Is fahrenheit currently selected
     private boolean fahr = true;
 
     private RadioGroup tempButtons;
     private RadioButton fahrButton;
     private RadioButton celButton;
+
+    private EditText lowerTempBox;
+    private EditText upperTempBox;
+
+    private float lowerTemp = 65;
+    private float upperTemp = 73;
 
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
@@ -93,6 +101,9 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
         tempButtons = (RadioGroup) findViewById(R.id.tempButtons);
         fahrButton = (RadioButton) findViewById(R.id.fahrTemp);
         celButton = (RadioButton) findViewById(R.id.celTemp);
+
+        lowerTempBox = (EditText) findViewById(R.id.lower_temperature_limit);
+        upperTempBox = (EditText) findViewById(R.id.upper_temperature_limit);
 
         //Applies listeners to the radio buttons. Allows for the temperature setting to be changed on the fly.
         tempButtons.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -202,15 +213,19 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
                     Log.d(Constants.TAG, "Value=" + Utility.byteArrayAsHexString(b));
                     if (characteristic_uuid.equalsIgnoreCase((Utility.normaliseUUID(BleAdapterService.TEMPERATURE_CHARACTERISTIC_UUID)))) {
                         Log.d(Constants.TAG, "Temperature received: " + temperature);
-                        fTemperature = (fTemperature * ((float) 9/5) + 32);
-                        fTemperature = Math.round(fTemperature);
-                        Log.d(Constants.TAG, "Temperature converted: " + temperature);
+
                         TextView temp = (TextView) TemperatureActivity.this.findViewById(R.id.temperature);
                         if(fahr) {
+                            //Convert Celecius temp to fahrenheit
+                            fTemperature = (fTemperature * ((float) 9/5) + 32);
+                            fTemperature = Math.round(fTemperature);
+                            Log.d(Constants.TAG, "Temperature converted: " + fTemperature);
                             temp.setText(fTemperature + "°");
-                        }else {
-                            temp.setText(temperature + "°");
                         }
+                        temp.setText(fTemperature + "°");
+
+
+
                     }
                     break;
                 case BleAdapterService.MESSAGE:

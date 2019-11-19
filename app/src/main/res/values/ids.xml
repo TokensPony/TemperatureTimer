@@ -3,4 +3,5 @@
     <item type="id" name="fahrTemp"/>
     <item type="id" name="celTemp"/>
     <item type="id" name="scanButton"/>
+    <item type="id" name="deviceList"/>
 </resources>

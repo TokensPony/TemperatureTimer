@@ -115,6 +115,38 @@
                     android:entries="@array/duration_list"
                     android:spinnerMode="dropdown" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="@string/temperature_lower"/>
+
+                <EditText
+                    android:id="@+id/lower_temperature_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number|numberSigned"
+                    android:maxLength="4"
+                    android:text=""/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="@string/temperature_upper"/>
+
+                <EditText
+                    android:id="@+id/upper_temperature_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number|numberSigned"
+                    android:maxLength="4"
+                    android:text=""/>
+
 
             </LinearLayout>
 
