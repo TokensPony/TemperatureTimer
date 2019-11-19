@@ -40,14 +40,6 @@
             android:screenOrientation="portrait"
             android:label="@string/app_name"></activity>
         <activity
-            android:name=".ui.AccelerometerActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name"></activity>
-        <activity
-            android:name=".ui.AccelerometerSettingsActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name"></activity>
-        <activity
             android:name=".ui.MagnetometerActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name"></activity>
@@ -56,31 +48,7 @@
             android:screenOrientation="portrait"
             android:label="@string/app_name"></activity>
         <activity
-            android:name=".ui.ButtonActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name"></activity>
-        <activity
-            android:name=".ui.AnimalsActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name"></activity>
-        <activity
-            android:name=".ui.LEDsActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name"></activity>
-        <activity
-            android:name=".ui.LEDsSettingsActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name"></activity>
-        <activity
             android:name=".ui.TemperatureActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name"></activity>
-        <activity
-            android:name=".ui.IoDigitalOutputActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name"></activity>
-        <activity
-            android:name=".ui.IoInputActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name"></activity>
         <activity
@@ -95,36 +63,7 @@
             android:name=".ui.DeviceInformationActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name"></activity>
-        <activity
-            android:name=".ui.SquirrelCounterActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name"></activity>
-        <activity android:name=".ui.GamepadControllerActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity android:name=".ui.GamepadControllerSettingsActivity"
-            android:label="@string/app_name">
-        </activity>
-        <activity android:name=".ui.HrmListActivity"
-            android:label="@string/app_name">
-        </activity>
-        <activity android:name=".ui.HrmActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".ui.HrmSettingsActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".ui.UartAvmActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".ui.TrivaScoreBoardControllerActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait">
-        </activity>
+
         <service
             android:name=".bluetooth.BleAdapterService"
             android:enabled="true" />

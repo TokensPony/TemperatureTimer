@@ -17,12 +17,15 @@ package com.bluetooth.mwoolley.microbitbledemo.ui;
  *  limitations under the License.
  */
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
@@ -58,8 +61,15 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
     private EditText lowerTempBox;
     private EditText upperTempBox;
 
+    private Vibrator vibrator;
+    private long[] mVibratePattern = new long[]{0, 400, 200, 400};
+
+    private CountDownTimer delayTimer;
+    private boolean alarmActive = false;
+    private boolean timerStarted = false;
+
     private float lowerTemp = 65;
-    private float upperTemp = 73;
+    private float upperTemp = 75;
 
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
@@ -105,6 +115,10 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
         lowerTempBox = (EditText) findViewById(R.id.lower_temperature_limit);
         upperTempBox = (EditText) findViewById(R.id.upper_temperature_limit);
 
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        delayTimer = setUpTimer(10000, 1000);
+
         //Applies listeners to the radio buttons. Allows for the temperature setting to be changed on the fly.
         tempButtons.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -124,6 +138,25 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
                 }
             }
         });
+
+        if (vibrator.hasVibrator()) {
+            vibrator.vibrate(500); // for 500 ms
+        }
+    }
+
+    public CountDownTimer setUpTimer(long length, long interval){
+        CountDownTimer newTimer = new CountDownTimer(length, interval) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                Log.i("Timer test", millisUntilFinished + "");
+            }
+
+            @Override
+            public void onFinish() {
+                alarmActive = true;
+            }
+        };
+        return newTimer;
     }
 
     @Override
@@ -225,6 +258,21 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
                         temp.setText(fTemperature + "°");
 
 
+                        //If temperature is out of range, make phone vibrate
+                        if(fTemperature < Float.valueOf(lowerTempBox.getText().toString()) ||
+                                fTemperature > Float.valueOf(upperTempBox.getText().toString())){
+                            if(!timerStarted){
+                                timerStarted = true;
+                                delayTimer.start();
+                            }
+                            if(alarmActive) {
+                                vibrator.vibrate(mVibratePattern, -1);
+                            }
+                        }else{
+                            delayTimer.cancel();
+                            timerStarted = false;
+                            alarmActive = false;
+                        }
 
                     }
                     break;

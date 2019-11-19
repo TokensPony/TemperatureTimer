@@ -129,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number|numberSigned"
                     android:maxLength="4"
-                    android:text=""/>
+                    android:text="65"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -145,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number|numberSigned"
                     android:maxLength="4"
-                    android:text=""/>
+                    android:text="75"/>
 
 
             </LinearLayout>
