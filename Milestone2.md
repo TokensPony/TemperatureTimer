@@ -1,13 +1,15 @@
 # Temperature Timer Milestone 2
 
 ## Summary  
-In this second milestone I focused on the most important two most core elements of the project, those being the ability to connect to the BBC Micro Bit via Bluetooth in the app and reading a basic Temperature. Along with that I tried to implement various UI elements in preparation for features that are soon to come in the app such as the timer functionality, high/low temperature alarms, and database connections.
+In this second milestone I focused on the two most core elements of the project, those being the ability to connect to the BBC Micro Bit via Bluetooth in the app and reading a basic temperature. Along with that I tried to implement crude versions of other features in the app such as the timer functionality and high/low temperature alarms.
 
 The base of this app utilizes some open source code from Martin Wooley's Micro Bit Blue application seen here:
 
 https://github.com/microbit-foundation/microbit-blue
 
-This code provides the BluetoothLE libraries and a basic interface for connecting to BBC Micro Bits and pulling data from it's various sensors. With this base I am creating my own interface for the temperature sensor that will allow for greater control and customization than what is provided in the stock pages.
+This code provides the BluetoothLE libraries and a basic interface for connecting to BBC Micro Bits and pulling data from it's various sensors. With this base I am creating my own interface for the temperature sensor that will allow for greater control and customization than what is provided in the stock code.
+
+The main code I have been working with exists here in the [Temperature Activity](https://github.com/TokensPony/TemperatureTimer/blob/master/app/src/main/java/com/bluetooth/mwoolley/microbitbledemo/ui/TemperatureActivity.java)
 
 The app I have so far will allow for connecting to BBC Micro Bit Devices, viewing current temperature date and converting that reading to
 Farenheit or Celcius on the fly. I also have added the basic UI elements and functionality for the app to alarm the user when a temperature is out of range. The user sets a high and low temperature in the app and it will begin to vibrate if the temeprature goes above or below that range and (currently) will not stop until the range is changed or the temperature is brought back within range. While very crude, this does meet the minimum possible criteria for my user stories regarding temperature ranges. Additionally. This build also has a test implementation of the delay timer. Once the temperature goes out of range, it will wait for a hard-coded 10 seconds before beginning to vibrate. This timer is cancelled if the temperature gets back within range before the timer runs out to account for erroneous fluxuations in temperature. I currently have a drop down option for different times, but I have not yet implemented it's functionality.
