@@ -30,10 +30,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,8 +62,11 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
     private RadioButton fahrButton;
     private RadioButton celButton;
 
+    private Spinner timeDelayOption;
+
     private EditText lowerTempBox;
     private EditText upperTempBox;
+    private Button setTempButton;
 
     private Vibrator vibrator;
     private long[] mVibratePattern = new long[]{0, 400, 200, 400};
@@ -112,12 +119,35 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
         fahrButton = (RadioButton) findViewById(R.id.fahrTemp);
         celButton = (RadioButton) findViewById(R.id.celTemp);
 
+        timeDelayOption = (Spinner) findViewById(R.id.timeDurations);
+        timeDelayOption.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                delayTimer = setUpTimer(getTimeDuration(), 1000);
+                String selectedTime = timeDelayOption.getSelectedItem().toString();
+                Toast.makeText(TemperatureActivity.this, "Delay timer set for " + selectedTime + " minutes",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         lowerTempBox = (EditText) findViewById(R.id.lower_temperature_limit);
         upperTempBox = (EditText) findViewById(R.id.upper_temperature_limit);
+        setTempButton = (Button) findViewById(R.id.setTempButton);
+        setTempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setTemperature();
+            }
+        });
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        delayTimer = setUpTimer(10000, 1000);
+        delayTimer = setUpTimer(getTimeDuration(), 1000);
 
         //Applies listeners to the radio buttons. Allows for the temperature setting to be changed on the fly.
         tempButtons.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -144,6 +174,26 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
         }
     }
 
+    public void setTemperature(){
+        if(!isEmpty(lowerTempBox) && !isEmpty(upperTempBox)){
+            lowerTemp = Float.valueOf(lowerTempBox.getText().toString());
+            upperTemp = Float.valueOf(upperTempBox.getText().toString());
+            Toast.makeText(TemperatureActivity.this, "Temperature set",
+                    Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(TemperatureActivity.this, "Invalid Temperatures",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
+
+    private boolean isEmpty(EditText etText) {
+        return etText.getText().toString().trim().length() == 0;
+    }
+
     public CountDownTimer setUpTimer(long length, long interval){
         CountDownTimer newTimer = new CountDownTimer(length, interval) {
             @Override
@@ -157,6 +207,10 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
             }
         };
         return newTimer;
+    }
+
+    public long getTimeDuration(){
+        return (Long.valueOf(timeDelayOption.getSelectedItem().toString()) * 60000) + 3000;
     }
 
     @Override
@@ -256,16 +310,17 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
                             temp.setText(fTemperature + "°");
                         }
                         temp.setText(fTemperature + "°");
-
+                        //Log.d("Temp Input", lowerTempBox.getText().toString());
 
                         //If temperature is out of range, make phone vibrate
-                        if(fTemperature < Float.valueOf(lowerTempBox.getText().toString()) ||
-                                fTemperature > Float.valueOf(upperTempBox.getText().toString())){
+                        if(fTemperature < lowerTemp || fTemperature > upperTemp){
                             if(!timerStarted){
                                 timerStarted = true;
                                 delayTimer.start();
                             }
                             if(alarmActive) {
+                                Toast.makeText(TemperatureActivity.this, "Temperature Out of Range.",
+                                        Toast.LENGTH_SHORT).show();
                                 vibrator.vibrate(mVibratePattern, -1);
                             }
                         }else{
