@@ -33,6 +33,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -47,6 +48,10 @@ import com.bluetooth.mwoolley.microbitbledemo.Constants;
 import com.bluetooth.mwoolley.microbitbledemo.MicroBit;
 import com.bluetooth.mwoolley.microbitbledemo.R;
 import com.bluetooth.mwoolley.microbitbledemo.Utility;
+import com.bluetooth.mwoolley.microbitbledemo.TemperatureConfig;
+import com.bluetooth.mwoolley.microbitbledemo.TinyDB;
+
+import java.util.ArrayList;
 
 public class TemperatureActivity extends AppCompatActivity implements ConnectionStatusListener {
 
@@ -77,6 +82,13 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
 
     private float lowerTemp = 65;
     private float upperTemp = 75;
+
+    private ArrayList<Object> tempSettings;
+    private ArrayList<String> names;
+    private ArrayAdapter<String> arrayAdapter;
+    private Spinner tempConfigOptions;
+    private Button setTempConfig;
+    private TinyDB settingsDB;
 
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
@@ -146,6 +158,21 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
         });
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        tempConfigOptions = (Spinner) findViewById(R.id.ConfigList);
+
+        tempSettings = new ArrayList<Object>();
+
+        tempSettings.add(new TemperatureConfig("test", 60, 70, 1));
+
+        /*TemperatureConfig test = (TemperatureConfig) tempSettings.get(0);
+        names.add(test.configName);
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, names);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tempConfigOptions.setAdapter(arrayAdapter);
+
+
+        tempSettings = settingsDB.getListObject("tempSettings", TemperatureConfig.class);*/
 
         delayTimer = setUpTimer(getTimeDuration(), 1000);
 

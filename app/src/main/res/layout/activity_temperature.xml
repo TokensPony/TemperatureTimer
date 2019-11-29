@@ -156,6 +156,25 @@
                     android:onClick="setTemperature"
                     android:text="@string/label_set_temp" />
 
+                <EditText
+                    android:id="@+id/configName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Name" />
+
+                <Spinner
+                    android:id="@+id/ConfigList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/saveConfigButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_save_temp_config" />
+
 
             </LinearLayout>
 
