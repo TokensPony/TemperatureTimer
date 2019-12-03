@@ -83,7 +83,7 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
     private float lowerTemp = 65;
     private float upperTemp = 75;
 
-    private ArrayList<Object> tempSettings;
+    private ArrayList<TemperatureConfig> tempSettings;
     private ArrayList<String> names;
     private ArrayAdapter<String> arrayAdapter;
     private Spinner tempConfigOptions;
@@ -161,18 +161,33 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
 
         tempConfigOptions = (Spinner) findViewById(R.id.ConfigList);
 
-        tempSettings = new ArrayList<Object>();
+        tempSettings = new ArrayList<TemperatureConfig>();
+        names = new ArrayList<String>();
 
-        tempSettings.add(new TemperatureConfig("test", 60, 70, 1));
 
-        /*TemperatureConfig test = (TemperatureConfig) tempSettings.get(0);
-        names.add(test.configName);
+        settingsDB = new TinyDB(this);
+
+        //Code for testing the temperature config and saving features.
+
+        tempSettings.add(new TemperatureConfig("test1", 60, 70, 1));
+        tempSettings.add(new TemperatureConfig("test2", 60, 70, 1));
+
+        //settingsDB.putListObject("tempSettings", tempSettings);
+
+        //tempSettings = settingsDB.getListObject("tempSettings", TemperatureConfig.class);
+
+
+        //tempSettings = settingsDB.getListObject("tempSettings", TemperatureConfig.class);
+
+        //Populate the settings spinner
+        for(TemperatureConfig x: tempSettings){
+            Log.i("ArrayList Test", x.configName);
+            names.add(x.configName);
+        }
+
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, names);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tempConfigOptions.setAdapter(arrayAdapter);
-
-
-        tempSettings = settingsDB.getListObject("tempSettings", TemperatureConfig.class);*/
 
         delayTimer = setUpTimer(getTimeDuration(), 1000);
 

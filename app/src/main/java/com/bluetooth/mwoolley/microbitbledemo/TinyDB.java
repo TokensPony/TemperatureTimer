@@ -40,6 +40,8 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.bluetooth.mwoolley.microbitbledemo.TemperatureConfig;
+
 
 public class TinyDB {
 
@@ -329,15 +331,15 @@ public class TinyDB {
         return newList;
     }
 
-
-    public ArrayList<Object> getListObject(String key, Class<?> mClass){
+    //If this fails, change back to Object
+    public ArrayList<TemperatureConfig> getListObject(String key, Class<?> mClass){
    	Gson gson = new Gson();
 
     	ArrayList<String> objStrings = getListString(key);
-    	ArrayList<Object> objects =  new ArrayList<Object>();
+    	ArrayList<TemperatureConfig> objects =  new ArrayList<TemperatureConfig>();
 
     	for(String jObjString : objStrings){
-    		Object value  = gson.fromJson(jObjString,  mClass);
+    		TemperatureConfig value  =  (TemperatureConfig) gson.fromJson(jObjString,  mClass);
     		objects.add(value);
     	}
     	return objects;
@@ -492,11 +494,12 @@ public class TinyDB {
     	putString(key, gson.toJson(obj));
     }
 
-    public void putListObject(String key, ArrayList<Object> objArray){
+    //If this fails, change back to Object
+    public void putListObject(String key, ArrayList<TemperatureConfig> objArray){
     	checkForNullKey(key);
     	Gson gson = new Gson();
     	ArrayList<String> objStrings = new ArrayList<String>();
-    	for(Object obj : objArray){
+    	for(TemperatureConfig obj : objArray){
     		objStrings.add(gson.toJson(obj));
     	}
     	putListString(key, objStrings);
