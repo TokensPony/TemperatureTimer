@@ -87,6 +87,7 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
     private ArrayList<String> names;
     private ArrayAdapter<String> arrayAdapter;
     private Spinner tempConfigOptions;
+    private EditText titleBox;
     private Button setTempConfig;
     private TinyDB settingsDB;
 
@@ -131,6 +132,7 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
         fahrButton = (RadioButton) findViewById(R.id.fahrTemp);
         celButton = (RadioButton) findViewById(R.id.celTemp);
 
+        //Sets up spinner with the time delays
         timeDelayOption = (Spinner) findViewById(R.id.timeDurations);
         timeDelayOption.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -159,18 +161,17 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        tempConfigOptions = (Spinner) findViewById(R.id.ConfigList);
-
+        //Arraylists set up for the settings and descriptions
         tempSettings = new ArrayList<TemperatureConfig>();
         names = new ArrayList<String>();
 
-
+        //Initializes tinyDB for my ATTEMPT at storing things
         settingsDB = new TinyDB(this);
 
         //Code for testing the temperature config and saving features.
-
-        tempSettings.add(new TemperatureConfig("test1", 60, 70, 1));
-        tempSettings.add(new TemperatureConfig("test2", 60, 70, 1));
+        //Adds two default options the tempSettings Spinner
+        tempSettings.add(new TemperatureConfig("Low Config Short", 55, 70, 0));
+        tempSettings.add(new TemperatureConfig("High Config Long", 70, 90, 2));
 
         //settingsDB.putListObject("tempSettings", tempSettings);
 
@@ -187,7 +188,52 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
 
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, names);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        titleBox = (EditText) findViewById(R.id.configName);
+
+        /*Sets up spinner for temperature configurations and sets up controls*/
+        tempConfigOptions = (Spinner) findViewById(R.id.ConfigList);
+        tempConfigOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("seom temp Config", "blah");
+                String choice = tempConfigOptions.getSelectedItem().toString();
+                int temp = 0;
+                for(TemperatureConfig x: tempSettings){
+                    if(choice.compareTo(x.configName) == 0){
+                        titleBox.setText(x.configName);
+                        lowerTempBox.setText(String.valueOf(x.lowTemp));
+                        upperTempBox.setText(String.valueOf(x.highTemp));
+                        timeDelayOption.setSelection(x.delayMinutes);
+                        //setTemperature();
+                        break;
+                    }
+                    temp++;
+                    Log.i("selection", x.configName + ", " + x.lowTemp);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         tempConfigOptions.setAdapter(arrayAdapter);
+
+        setTempConfig = (Button) findViewById(R.id.saveConfigButton);
+        setTempConfig.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = titleBox.getText().toString();
+                int l = Integer.valueOf(lowerTempBox.getText().toString());
+                int h = Integer.valueOf(upperTempBox.getText().toString());
+                int t = Integer.valueOf(timeDelayOption.getSelectedItem().toString());
+                names.add(title);
+                tempSettings.add(new TemperatureConfig(title, l, h, t));
+                setupSpinner();
+            }
+        }) );
 
         delayTimer = setUpTimer(getTimeDuration(), 1000);
 
@@ -214,6 +260,11 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
         if (vibrator.hasVibrator()) {
             vibrator.vibrate(500); // for 500 ms
         }
+    }
+
+    public void setupSpinner(){
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, names);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 
     public void setTemperature(){
