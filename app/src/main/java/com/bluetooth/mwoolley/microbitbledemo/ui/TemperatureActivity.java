@@ -63,6 +63,7 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
     //Is fahrenheit currently selected
     private boolean fahr = true;
 
+    //Establishing variables for the various UI components
     private RadioGroup tempButtons;
     private RadioButton fahrButton;
     private RadioButton celButton;
@@ -73,6 +74,7 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
     private EditText upperTempBox;
     private Button setTempButton;
 
+    //Vibration and pattern settings
     private Vibrator vibrator;
     private long[] mVibratePattern = new long[]{0, 400, 200, 400};
 
@@ -80,8 +82,9 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
     private boolean alarmActive = false;
     private boolean timerStarted = false;
 
+    //Default Values
     private float lowerTemp = 65;
-    private float upperTemp = 75;
+    private float upperTemp = 80;
 
     private ArrayList<TemperatureConfig> tempSettings;
     private ArrayList<String> names;
@@ -149,6 +152,7 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
             }
         });
 
+        //Sets up the text boxes for temperature and adds the click listener for the set button.
         lowerTempBox = (EditText) findViewById(R.id.lower_temperature_limit);
         upperTempBox = (EditText) findViewById(R.id.upper_temperature_limit);
         setTempButton = (Button) findViewById(R.id.setTempButton);
@@ -159,6 +163,7 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
             }
         });
 
+        //Sets up the vibrator with the system services.
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         //Arraylists set up for the settings and descriptions
@@ -221,6 +226,7 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
         });
         tempConfigOptions.setAdapter(arrayAdapter);
 
+        //Adds a new spinner value to the list when enter button is pressed.
         setTempConfig = (Button) findViewById(R.id.saveConfigButton);
         setTempConfig.setOnClickListener((new View.OnClickListener() {
             @Override
@@ -267,6 +273,8 @@ public class TemperatureActivity extends AppCompatActivity implements Connection
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 
+
+    //Checks if entered temperature values are valid
     public void setTemperature(){
         if(!isEmpty(lowerTempBox) && !isEmpty(upperTempBox)){
             lowerTemp = Float.valueOf(lowerTempBox.getText().toString());
